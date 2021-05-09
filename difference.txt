@@ -1,0 +1,5 @@
+Part 2.1: Difference
+a) Questions 1-5: The two types of Intents used for Android are Implicit Intents and Explicit Intents (1); in terms of security, Explicit Intents are much more secure, due to their definite specification of responding/interacting services. Implicit Intents do not allow identification of services - messages can be sent to wrong components (2).
+"Line 69-73 of "SecondFragment.kt" is an example of an Implcit Intent for a website, while lines 68-70 of "ThirdFragment.kt" is an Explicit Intent (3,4) - "Third Fragment.kt" and its Explicit Intent are the proper way, as they cause a web page external of the app to be opened (5). 
+
+b) Fixing the incorrect Intent: In order to fix this, we modify "SecondFragment.kt" to use Explicit Intent by specifying the action "scrollingprofileactivity" rather than utilizing the "intent.actionall" key, avoiding ambiguity and not utilizing unecessary components. This is done with "var intent = Intent(activity, ProductScrollingActivity::class.jav".
