@@ -1,0 +1,9 @@
+Part 4: Oops, was that card yours?
+There exists a vulnerability in the REST API that allows users to use GiftCards that do not belong to them. In a file called BUG.txt, explain why this vulnerability may be occurring, and how it can be fixed. Your explanation should be no larger than a paragraph.
+
+You can start looking for this vulnerability in the following files:
+
+UseCard.kt
+CardInterface.kt
+
+Think about how the application is telling the server which card to use, and how that may be problematic.
