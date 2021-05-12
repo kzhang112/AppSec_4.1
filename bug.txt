@@ -1,9 +1,7 @@
-Part 4: Oops, was that card yours?
-There exists a vulnerability in the REST API that allows users to use GiftCards that do not belong to them. In a file called BUG.txt, explain why this vulnerability may be occurring, and how it can be fixed. Your explanation should be no larger than a paragraph.
+Part 2.4: Oops, was that card yours?
 
-You can start looking for this vulnerability in the following files:
+The vulnerability exists within the application mostly because the application itself does not check if the authorization matches the card user; only that the authentication token is valid. This is represented in the code when only variables card.id and user_token are used to validate. Taking two random users, User 1 (victim) and User 2 (attacker), for example: Running useCard() (e.g.UseCard.kt) with User 1's id and User 2's valid token, will allow User 2 to pay using User 1's gift card. Anyone with a valid token can then use whichever card they choose, if they know (or can guess) another card's ID. 
 
-UseCard.kt
-CardInterface.kt
+In order to further increase security, a form of authentication can be used to validate that a gift card does indeed belong to the individual who is using it. The application will need to be modified by additionally checking User ID of the card with the User ID of the Token in the application database (functionality exists already to pair User ID with a Token and User ID with a Card ID). If it validates, only then will the card be used. Additionally (outside the scope of this assignment) this potentially could be validated by pairing the gift card with a users' phone number or, more securely, through a 2-step mobile authenticator to avoid additional PII tracked in the App (i.e. Google Authenticator). In the end, if the user cannot authenticate, then the card operation can be rejected, printing a "Card was not successfully authenticated" message. 
 
-Think about how the application is telling the server which card to use, and how that may be problematic.
+

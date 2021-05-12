@@ -42,7 +42,7 @@ class SecondFragment : Fragment() {
             var password : String = view.findViewById<EditText>(R.id.registerPassword).text.toString()
             var password2 : String = view.findViewById<EditText>(R.id.registerConfirmPassword).text.toString()
 
-//Adding in "https" to replace "http"
+//KZ: Adding in "https" to replace "http"
             var builder: Retrofit.Builder = Retrofit.Builder().baseUrl("https://appsecclass.report").addConverterFactory(GsonConverterFactory.create())
             var retrofit: Retrofit = builder.build()
             var client: UserInterface = retrofit.create(UserInterface::class.java)
@@ -64,7 +64,7 @@ class SecondFragment : Fragment() {
                         Log.d("Register Success", "Register success. Boo.")
                         Log.d("Register Success", "Token:" + loggedInUser?.token.toString())
                         //var intent = Intent(Intent.ACTION_VIEW)
-//Removing the implicit intent and adding in the explicit intent
+//KZ: Removing the implicit intent and adding in the explicit intent
                         var intent = Intent(activity,ProductScrollingActivity::class.java)
                         //intent.type = "text/giftcards_browse"
                         //intent.data = Uri.parse("https://appsecclass.report/api/index")

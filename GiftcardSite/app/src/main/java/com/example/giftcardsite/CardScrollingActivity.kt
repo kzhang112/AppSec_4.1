@@ -4,13 +4,15 @@ import android.Manifest
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
-import android.hardware.Sensor
-import android.hardware.SensorEvent
-import android.hardware.SensorEventListener
-import android.hardware.SensorManager
-import android.location.Location
-import android.location.LocationListener
-import android.location.LocationManager
+
+//KZ: Removing any mentions of Sensors or Location to preserve privacy
+//import android.hardware.Sensor
+//import android.hardware.SensorEvent
+//import android.hardware.SensorEventListener
+//import android.hardware.SensorManager
+//import android.location.Location
+//import android.location.LocationListener
+//import android.location.LocationManager
 import android.os.Bundle
 import android.util.Log
 import android.view.Menu
@@ -22,29 +24,36 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.giftcardsite.api.model.*
 import com.example.giftcardsite.api.service.CardInterface
-import com.example.giftcardsite.api.service.UserInfo
+
+//KZ: Remove any API calls that contain user information.
+//import com.example.giftcardsite.api.service.UserInfo
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
-class CardScrollingActivity : AppCompatActivity(), SensorEventListener, LocationListener {
+//KZ:  There is a mention of both a Sensor and Location Listener, both of which are not required for Card Scrolling. 
+class CardScrollingActivity : AppCompatActivity() { //, SensorEventListener, LocationListener {
     private var loggedInUser : User? = null
-    private lateinit var sensorManager: SensorManager
-    private var mAccel: Sensor? = null;
 
+//KZ:  These sensors seem to interface with the accelerometer, collecting data based on a component of the phone.    
+//    private lateinit var sensorManager: SensorManager
+//    private var mAccel: Sensor? = null;
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val locationPermissionCode = 2
-        var locationManager = getSystemService(Context.LOCATION_SERVICE) as LocationManager
-        if ((ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED)) {
-            ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.ACCESS_FINE_LOCATION), locationPermissionCode)
-        }
-        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 5000, 5f, this)
-        sensorManager = getSystemService(Context.SENSOR_SERVICE) as SensorManager
-        mAccel = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER)
+
+//KZ:  Both Location and Sensors are mentioned in the below line of code. This matches the AndroidManifest.xml, including permissions for Fine locations
+//        val locationPermissionCode = 2
+//        var locationManager = getSystemService(Context.LOCATION_SERVICE) as LocationManager
+//        if ((ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED)) {
+//            ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.ACCESS_FINE_LOCATION), locationPermissionCode)
+//       }
+//       locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 5000, 5f, this)
+//       sensorManager = getSystemService(Context.SENSOR_SERVICE) as SensorManager
+//       mAccel = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER)
+
         setContentView(R.layout.activity_scrolling)
         setSupportActionBar(findViewById(R.id.toolbar))
         loggedInUser = intent.getParcelableExtra<User>("User")
@@ -56,7 +65,7 @@ class CardScrollingActivity : AppCompatActivity(), SensorEventListener, Location
             }
             startActivity(intent)
         }
-//Adding in "https" to replace "http"
+//KZ: Adding in "https" to replace "http"
         var builder: Retrofit.Builder = Retrofit.Builder().baseUrl("https://appsecclass.report").addConverterFactory(
             GsonConverterFactory.create())
         var retrofit: Retrofit = builder.build()
@@ -94,73 +103,81 @@ class CardScrollingActivity : AppCompatActivity(), SensorEventListener, Location
         menuInflater.inflate(R.menu.menu_main, menu)
         return true
     }
-    override fun onLocationChanged(location: Location) {
-//Adding in "https" to replace "http"       
-        var userInfoContainer = UserInfoContainer(location, null, loggedInUser?.token)
-        var builder: Retrofit.Builder = Retrofit.Builder().baseUrl("https://appsecclass.report").addConverterFactory(
-            GsonConverterFactory.create())
-        var retrofit: Retrofit = builder.build()
-        var client: UserInfo = retrofit.create(UserInfo::class.java)
-        client.postInfo(userInfoContainer, loggedInUser?.token)?.enqueue(object: Callback<User?> {
-            override fun onFailure(call: Call<User?>, t: Throwable) {
-                Log.d("Metric Failure", "Metric Failure in onFailure")
-                Log.d("Metric Failure", t.message.toString())
 
-            }
+//KZ:  This entire grouping of code blocks from lines 103-173 utilize privacy invasive tools. Additionall comments within. 
+// 
+//    override fun onLocationChanged(location: Location) {
+//KZ edit1: This is no longer necessary, as this section uses privacy invasive tools. KZ: Adding in "https" to replace "http"       
+//        var userInfoContainer = UserInfoContainer(location, null, loggedInUser?.token)
+//        var builder: Retrofit.Builder = Retrofit.Builder().baseUrl("https://appsecclass.report").addConverterFactory(
+//            GsonConverterFactory.create())
+//        var retrofit: Retrofit = builder.build()
+//        var client: UserInfo = retrofit.create(UserInfo::class.java)
+//        client.postInfo(userInfoContainer, loggedInUser?.token)?.enqueue(object: Callback<User?> {
+//            override fun onFailure(call: Call<User?>, t: Throwable) {
+//                Log.d("Metric Failure", "Metric Failure in onFailure")
+//                Log.d("Metric Failure", t.message.toString())
+//
+//            }
+//
+//            override fun onResponse(call: Call<User?>, response: Response<User?>) {
+//                if (!response.isSuccessful) {
+//                    Log.d("Metric Failure", "Metric failure. Yay.")
+//                } else {
+//                    Log.d("Metric Success", "Metric success. Boo.")
+//                   Log.d("Metric Success", "Token:${userInfoContainer.token}")
+//               }
+//           }
+//       })
+//   }
+// 
+//KZ: This section deliniates the call backs and operations on user info in reference to a sensor. Again, we remove it to have privacy preserving code.
+//
+//    override fun onSensorChanged(event: SensorEvent?) {
+//        if (event != null) {
+//            var userInfoContainer = UserInfoContainer(null, event.values[0].toString(), loggedInUser?.token)
+//KZ edit1: This is no longer necessary, as this section uses privacy invasive tools. KZ: Adding in "https" to replace "http"
+//            var builder: Retrofit.Builder = Retrofit.Builder().baseUrl("https://appsecclass.report").addConverterFactory(
+//                GsonConverterFactory.create())
+//            var retrofit: Retrofit = builder.build()
+//            var client: UserInfo = retrofit.create(UserInfo::class.java)
+//            client.postInfo(userInfoContainer, loggedInUser?.token)?.enqueue(object: Callback<User?> {
+//                override fun onFailure(call: Call<User?>, t: Throwable) {
+//                    Log.d("Metric Failure", "Metric Failure in onFailure")
+//                    Log.d("Metric Failure", t.message.toString())
+//
+//                }
+//
+//                override fun onResponse(call: Call<User?>, response: Response<User?>) {
+//                    if (!response.isSuccessful) {
+//                        Log.d("Metric Failure", "Metric failure. Yay.")
+//                    } else {
+//                        Log.d("Metric Success", "Metric success. Boo.")
+//                        Log.d("Metric Success", "Token:${userInfoContainer.token}")
+//                    }
+//                }
+//            })
+//        }
+//    }
 
-            override fun onResponse(call: Call<User?>, response: Response<User?>) {
-                if (!response.isSuccessful) {
-                    Log.d("Metric Failure", "Metric failure. Yay.")
-                } else {
-                    Log.d("Metric Success", "Metric success. Boo.")
-                    Log.d("Metric Success", "Token:${userInfoContainer.token}")
-                }
-            }
-        })
-    }
+//KZ: This section refers to accuracy of sensors.
+//    override fun onAccuracyChanged(sensor: Sensor?, accuracy: Int) {
+//        return
+//    }
 
-    override fun onSensorChanged(event: SensorEvent?) {
-        if (event != null) {
-            var userInfoContainer = UserInfoContainer(null, event.values[0].toString(), loggedInUser?.token)
-//Adding in "https" to replace "http"
-            var builder: Retrofit.Builder = Retrofit.Builder().baseUrl("https://appsecclass.report").addConverterFactory(
-                GsonConverterFactory.create())
-            var retrofit: Retrofit = builder.build()
-            var client: UserInfo = retrofit.create(UserInfo::class.java)
-            client.postInfo(userInfoContainer, loggedInUser?.token)?.enqueue(object: Callback<User?> {
-                override fun onFailure(call: Call<User?>, t: Throwable) {
-                    Log.d("Metric Failure", "Metric Failure in onFailure")
-                    Log.d("Metric Failure", t.message.toString())
+//KZ: THis section refers to the accelerometer, utilizing privacy invasive hardware
+//    override fun onResume() {
+//        super.onResume()
+//        mAccel?.also { accel ->
+//           sensorManager.registerListener(this, accel, SensorManager.SENSOR_DELAY_NORMAL)
+//        }
+//    }
 
-                }
-
-                override fun onResponse(call: Call<User?>, response: Response<User?>) {
-                    if (!response.isSuccessful) {
-                        Log.d("Metric Failure", "Metric failure. Yay.")
-                    } else {
-                        Log.d("Metric Success", "Metric success. Boo.")
-                        Log.d("Metric Success", "Token:${userInfoContainer.token}")
-                    }
-                }
-            })
-        }
-    }
-
-    override fun onAccuracyChanged(sensor: Sensor?, accuracy: Int) {
-        return
-    }
-
-    override fun onResume() {
-        super.onResume()
-        mAccel?.also { accel ->
-            sensorManager.registerListener(this, accel, SensorManager.SENSOR_DELAY_NORMAL)
-        }
-    }
-
-    override fun onPause() {
-        super.onPause()
-        sensorManager.unregisterListener(this)
-    }
+//KZ: Finally, this section utilizes "Listener" which is a part of the sensor Manager. Anything related to sensors is taken out.
+//    override fun onPause() {
+//        super.onPause()
+//        sensorManager.unregisterListener(this)
+//    }
 
 
 }

@@ -32,7 +32,7 @@ class UseCard : AppCompatActivity() {
         var image : CircleImageView = findViewById(R.id.image_view)
         val card : Card? = intent.getParcelableExtra("Card")
         findViewById<EditText>(R.id.amount).setText(card?.amount.toString())
-//Adding in "https" to replace "http"
+//KZ: Adding in "https" to replace "http"
         Glide.with(this).asBitmap().load("https://appsecclass.report/" + card?.product?.productImageLink).into(image)
         val loggedInUser : User? = intent.getParcelableExtra("User")
         var token : String = "Token " + loggedInUser?.token.toString()
@@ -41,7 +41,7 @@ class UseCard : AppCompatActivity() {
         var button: Button = findViewById(R.id.submit_buy)
         button.text = "Use Card"
         button.setOnClickListener{
-//Adding in "https" to replace "http"
+//KZ: Adding in "https" to replace "http"
             var builder: Retrofit.Builder = Retrofit.Builder().baseUrl("https://appsecclass.report").addConverterFactory(
                 GsonConverterFactory.create())
             var retrofit: Retrofit = builder.build()

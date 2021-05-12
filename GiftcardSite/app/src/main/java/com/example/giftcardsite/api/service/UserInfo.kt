@@ -8,6 +8,7 @@ import retrofit2.http.Header
 import retrofit2.http.POST
 
 interface UserInfo {
-    @POST("/api/metrics")
+//KZ: This contains a metric gathering tool. Commenting this out will prevent this portion from gathering privacy invasive data..
+//    @POST("/api/metrics")
     fun postInfo(@Body info: UserInfoContainer, @Header("Authorization") token: String?) : Call<User>
 }
