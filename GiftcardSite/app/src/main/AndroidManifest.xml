@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <!--
-We are adding the tools XML attributes, allowing error handling among others (e.g. tools:ignore) 
+KZ: We are adding the tools XML attributes, allowing error handling among others (e.g. tools:ignore) 
 -->
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
@@ -10,7 +10,7 @@ We are adding the tools XML attributes, allowing error handling among others (e.
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />
 	
-<!--This user information is invasive, requires permission to users' position (fine, coarse, and mock)-->
+<!--KZ: This user information is invasive, requires permission to users' position (fine, coarse, and mock)-->
 <!--
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
@@ -26,7 +26,7 @@ We are adding the tools XML attributes, allowing error handling among others (e.
         android:supportsRtl="true"
         android:theme="@style/Theme.GiftcardSite"
         android:usesCleartextTraffic="true">
-<!--android:exported="false" prevents app from accessing outside activities, but also needs error handling, provided by tools:ignore-->
+<!--KZ: android:exported="false" prevents app from accessing outside activities, but also needs error handling, provided by tools:ignore-->
         <activity
             android:name=".UseCard"
             android:label="@string/title_activity_use_card"
@@ -43,7 +43,7 @@ We are adding the tools XML attributes, allowing error handling among others (e.
                 <data android:host="appsecclass.report"/>
             </intent-filter>
         </activity>
-<!--android:exported="false" prevents app from accessing outside activities, but also needs error handling, provided by tools:ignore-->
+<!--KZ: android:exported="false" prevents app from accessing outside activities, but also needs error handling, provided by tools:ignore-->
         <activity
             android:name=".GetCard"
             android:label="@string/title_activity_get_card"
@@ -58,7 +58,7 @@ We are adding the tools XML attributes, allowing error handling among others (e.
                 <data android:host="appsecclass.report"/>
             </intent-filter>
         </activity>
-<!--android:exported="false" prevents app from accessing outside activities, but also needs error handling, provided by tools:ignore-->
+<!--KZ: android:exported="false" prevents app from accessing outside activities, but also needs error handling, provided by tools:ignore-->
         <activity
             android:name=".ProductScrollingActivity"
             android:label="@string/title_activity_scrolling"
@@ -83,7 +83,7 @@ We are adding the tools XML attributes, allowing error handling among others (e.
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-<!--android:exported="false" prevents app from accessing outside activities, but also needs error handling, provided by tools:ignore-->    
+<!--KZ: android:exported="false" prevents app from accessing outside activities, but also needs error handling, provided by tools:ignore-->    
         <activity
             android:name=".CardScrollingActivity"
             android:label="@string/title_activity_scrolling_card"
